@@ -1,0 +1,23 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Flight {
+  id              String   @id @default(cuid())
+  from            String   @db.VarChar(50)
+  to              String   @db.VarChar(50)
+  ipAddress       String   @db.VarChar(50) @map("ip_address")
+  timestamp       DateTime @db.Timestamp
+  parentId        String?  @db.VarChar(50) @map("parent_id")
+  flightSequenceNumber Int? @db.Int @map("flight_sequence_number")
+
+  @@map("flight")
+}
